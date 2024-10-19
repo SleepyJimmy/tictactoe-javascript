@@ -29,6 +29,7 @@ function gameBoard() {
         }
         renderBoard();
     }
+
     return {board, renderBoard, addEntry};
 }
 
@@ -38,5 +39,23 @@ function player(name, marker) {
 }
 
 
+function gameLogic(board, player1, player2) {
+    currentPlayer = player1;
+
+    const cells = document.getElementsByClassName("cell");
+    Array.from(cells).forEach((cell) => {
+        cell.addEventListener("click", function() {
+            const row = cell.dataset.row;
+            const col = cell.dataset.col;
+
+            board.addEntry(row, col, currentPlayer.marker)
+            currentPlayer = currentPlayer === player1 ? player2 : player1;
+        })
+    })
+}
+
 const board = gameBoard();
+const player1 = player("john", "X");
+const player2 = player("jill", "O");
 board.renderBoard();
+gameLogic(board, player1, player2);
