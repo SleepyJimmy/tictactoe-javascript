@@ -26,8 +26,38 @@ function gameBoard() {
             board[row][col] = marker;
             const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
             cell.textContent = board[row][col];
+            
         } else {
             alert("Cell already taken!");
+        }
+        isGameOver();
+    }
+
+    const isGameOver = () => {
+        if (!board || board.length !== 3 || board.some(row => row.length !== 3)) {
+            return 
+        }
+        // check rows
+        for (let row = 0; row < 3; row++) {
+            if (board[row][0] !== "" && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
+                alert(`${board[row][0]} wins!`)
+            }
+        }
+
+        // check columns
+        for (let col = 0; col < 3; col++) {
+            if (board[0][col] !== "" && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
+                alert(`${board[0][col]} wins!`)
+            }
+        }
+
+        // check diagonals
+        if (board[0][0] !== "" && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
+            alert(`${board[0][0]} wins!`);
+        }
+    
+        if (board[0][2] !== "" && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
+            alert(`${board[0][2]} wins!`);
         }
     }
 
