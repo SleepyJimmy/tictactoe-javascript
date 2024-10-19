@@ -24,10 +24,11 @@ function gameBoard() {
     const addEntry = (row, col, marker) => {
         if (board[row][col] === "") {
             board[row][col] = marker;
+            const cell = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            cell.textContent = board[row][col];
         } else {
             alert("Cell already taken!");
         }
-        renderBoard();
     }
 
     return {board, renderBoard, addEntry};
