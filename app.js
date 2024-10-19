@@ -1,4 +1,5 @@
 const gameBoardElement = document.getElementById("gameBoard");
+let gameState = false;
 
 
 function gameBoard() {
@@ -7,7 +8,6 @@ function gameBoard() {
         ["", "", ""],
         ["", "", ""]
     ];
-
     const renderBoard = () => {
         for (let row = 0; row < 3; row++) {
             for (let col = 0; col < 3; col++) {
@@ -36,6 +36,7 @@ function gameBoard() {
                 ["", "", ""],
                 ["", "", ""]
             ];
+            gameState = true;
             const cells = document.getElementsByClassName("cell");
             Array.from(cells).forEach((cell) => {
                 cell.textContent = "";
@@ -82,7 +83,7 @@ function gameBoard() {
         }
     }
 
-    return {board, renderBoard, addEntry};
+    return {gameState, board, renderBoard, addEntry, isGameOver};
 }
 
 
@@ -101,7 +102,12 @@ function gameLogic(board, player1, player2) {
             const col = cell.dataset.col;
 
             board.addEntry(row, col, currentPlayer.marker)
-            currentPlayer = currentPlayer === player1 ? player2 : player1;
+            if (gameState) {
+                currentPlayer = player1;
+                gameState = false;
+            } else {
+                currentPlayer = currentPlayer === player1 ? player2 : player1;
+            }
         })
     })
 }
