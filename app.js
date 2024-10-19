@@ -73,6 +73,13 @@ function gameBoard() {
             alert(`${board[0][2]} wins!`);
             return true;
         }
+
+        // check if draw
+        const isDraw = board.flat().every(cell => cell !== "");
+        if (isDraw) {
+            alert("It's a draw!");
+            return true;
+        }
     }
 
     return {board, renderBoard, addEntry};
