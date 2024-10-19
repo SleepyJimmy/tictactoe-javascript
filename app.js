@@ -2,7 +2,7 @@ const gameBoardElement = document.getElementById("gameBoard");
 
 
 function gameBoard() {
-    const board = [
+    let board = [
         ["", "", ""],
         ["", "", ""],
         ["", "", ""]
@@ -30,7 +30,17 @@ function gameBoard() {
         } else {
             alert("Cell already taken!");
         }
-        isGameOver();
+        if (isGameOver()) {
+            board = [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+            ];
+            const cells = document.getElementsByClassName("cell");
+            Array.from(cells).forEach((cell) => {
+                cell.textContent = "";
+            })
+        }
     }
 
     const isGameOver = () => {
@@ -40,7 +50,8 @@ function gameBoard() {
         // check rows
         for (let row = 0; row < 3; row++) {
             if (board[row][0] !== "" && board[row][0] === board[row][1] && board[row][1] === board[row][2]) {
-                alert(`${board[row][0]} wins!`)
+                alert(`${board[row][0]} wins!`);
+                return true;
             }
         }
 
@@ -48,16 +59,19 @@ function gameBoard() {
         for (let col = 0; col < 3; col++) {
             if (board[0][col] !== "" && board[0][col] === board[1][col] && board[1][col] === board[2][col]) {
                 alert(`${board[0][col]} wins!`)
+                return true;
             }
         }
 
         // check diagonals
         if (board[0][0] !== "" && board[0][0] === board[1][1] && board[1][1] === board[2][2]) {
             alert(`${board[0][0]} wins!`);
+            return true;
         }
     
         if (board[0][2] !== "" && board[0][2] === board[1][1] && board[1][1] === board[2][0]) {
             alert(`${board[0][2]} wins!`);
+            return true;
         }
     }
 
